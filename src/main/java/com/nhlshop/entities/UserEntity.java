@@ -37,6 +37,12 @@ public class UserEntity {
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<RoleEntity> roles;
 
+    // @OneToMany(mappedBy = "orderUser")
+    // private Set<OrderEntity> orders;
+
+    // @OneToMany(mappedBy = "shipper")
+    // private Set<OrderEntity> orderShippers;
+
     public Long getId() {
         return id;
     }

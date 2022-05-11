@@ -4,11 +4,27 @@ public class ResponseObject {
     private String status;
     private String message;
     private Object data;
+    private String jwt;
 
     public ResponseObject(String status, String message, Object data) {
         this.status = status;
         this.message = message;
         this.data = data;
+    }
+
+    public ResponseObject(String status, String message, Object data, String jwt) {
+        this.status = status;
+        this.message = message;
+        this.data = data;
+        this.jwt = jwt;
+    }
+
+    public String getJwt() {
+        return jwt;
+    }
+
+    public void setJwt(String jwt) {
+        this.jwt = jwt;
     }
 
     public ResponseObject() {
