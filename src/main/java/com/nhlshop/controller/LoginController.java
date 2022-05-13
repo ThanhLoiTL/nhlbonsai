@@ -2,7 +2,7 @@ package com.nhlshop.controller;
 
 import com.nhlshop.config.JwtTokenProvider;
 import com.nhlshop.dto.LoginRequest;
-import com.nhlshop.dto.ResponseObject;
+import com.nhlshop.dto.ResponseLogin;
 import com.nhlshop.entities.UserEntity;
 import com.nhlshop.service.IUserService;
 import com.nhlshop.service.impl.UserDetailsServiceImpl;
@@ -39,19 +39,19 @@ public class LoginController {
     private IUserService userService;
 
     @PostMapping
-    public ResponseEntity<ResponseObject> authenticate(@Validated @RequestBody LoginRequest loginRequest)
+    public ResponseEntity<ResponseLogin> authenticate(@Validated @RequestBody LoginRequest loginRequest)
             throws Exception {
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
         } catch (BadCredentialsException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-                    new ResponseObject("FAILED", "Email or password not found!", ""));
+                    new ResponseLogin("FAILED", "Email or password not found!", ""));
         }
         final UserDetails userDetails = userDetailsServiceImpl.loadUserByUsername(loginRequest.getEmail());
         final String jwt = jwtTokenProvider.generateToken(userDetails);
         UserEntity user = userService.findByEmail(loginRequest.getEmail());
         return ResponseEntity.status(HttpStatus.OK).body(
-                new ResponseObject("OK", "Login successfully", user, jwt));
+                new ResponseLogin("OK", "Login successfully", user, jwt));
     }
 }

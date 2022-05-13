@@ -1,17 +1,33 @@
 package com.nhlshop.dto;
 
-public class ResponseObject {
+public class ResponseLogin {
     private String status;
     private String message;
     private Object data;
+    private String jwt;
 
-    public ResponseObject(String status, String message, Object data) {
+    public ResponseLogin(String status, String message, Object data) {
         this.status = status;
         this.message = message;
         this.data = data;
     }
 
-    public ResponseObject() {
+    public ResponseLogin(String status, String message, Object data, String jwt) {
+        this.status = status;
+        this.message = message;
+        this.data = data;
+        this.jwt = jwt;
+    }
+
+    public String getJwt() {
+        return jwt;
+    }
+
+    public void setJwt(String jwt) {
+        this.jwt = jwt;
+    }
+
+    public ResponseLogin() {
     }
 
     public String getStatus() {
