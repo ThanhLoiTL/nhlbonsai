@@ -1,11 +1,11 @@
 package com.nhlshop.controller.admin;
 
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
 import com.nhlshop.converter.UserConverter;
+import com.nhlshop.dto.Page;
 import com.nhlshop.dto.ResponseObject;
 import com.nhlshop.dto.UserDTO;
 import com.nhlshop.entities.RoleEntity;
@@ -14,6 +14,8 @@ import com.nhlshop.service.IRoleService;
 import com.nhlshop.service.IUserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -24,6 +26,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -38,9 +41,21 @@ public class AccountController {
     @Autowired
     private IRoleService roleService;
 
+    // @GetMapping
+    // public ResponseEntity<Collection<UserEntity>> getAllUser() {
+    // return new ResponseEntity<>(userService.findAll(), HttpStatus.OK);
+    // }
+
     @GetMapping
-    public ResponseEntity<Collection<UserEntity>> getAllUser() {
-        return new ResponseEntity<>(userService.findAll(), HttpStatus.OK);
+    public ResponseEntity<ResponseObject> getPageUser(@RequestParam("page") int page,
+            @RequestParam("limit") int limit) {
+        Pageable pageable = PageRequest.of(page - 1, limit);
+        Page<UserEntity> result = new Page<>();
+        result.setPage(page);
+        result.setList(userService.findAll(pageable));
+        result.setTotalpage((int) Math.ceil((double) (userService.totalItem()) / limit));
+        return ResponseEntity.status(HttpStatus.OK).body(
+                new ResponseObject("OK", "Get users successfully", result));
     }
 
     @GetMapping("/{id}")

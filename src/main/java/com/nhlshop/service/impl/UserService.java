@@ -11,6 +11,7 @@ import com.nhlshop.repository.UserRepository;
 import com.nhlshop.service.IUserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -35,6 +36,11 @@ public class UserService implements IUserService {
     }
 
     @Override
+    public Collection<UserEntity> findAll(Pageable pageable) {
+        return (Collection<UserEntity>) userRepository.findAll(pageable).getContent();
+    }
+
+    @Override
     public Optional<UserEntity> findById(Long id) {
         return (Optional<UserEntity>) userRepository.findById(id);
     }
@@ -47,6 +53,11 @@ public class UserService implements IUserService {
     @Override
     public void deleteById(Long id) {
         userRepository.deleteById(id);
+    }
+
+    @Override
+    public int totalItem() {
+        return (int) userRepository.count();
     }
 
 }

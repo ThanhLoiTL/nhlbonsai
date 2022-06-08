@@ -1,13 +1,13 @@
 package com.nhlshop.controller.admin;
 
 import java.io.IOException;
-import java.util.Collection;
 import java.util.Optional;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nhlshop.converter.ProductConverter;
+import com.nhlshop.dto.Page;
 import com.nhlshop.dto.ProductDTO;
 import com.nhlshop.dto.ResponseObject;
 import com.nhlshop.entities.ProductEntity;
@@ -15,6 +15,8 @@ import com.nhlshop.service.ICategoryService;
 import com.nhlshop.service.IProductService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -39,9 +41,20 @@ public class ProductController {
     @Autowired
     private ICategoryService categoryService;
 
+    // @GetMapping
+    // public ResponseEntity<Collection<ProductEntity>> getAll() {
+    // return new ResponseEntity<>(productService.findAll(), HttpStatus.OK);
+    // }
     @GetMapping
-    public ResponseEntity<Collection<ProductEntity>> getAll() {
-        return new ResponseEntity<>(productService.findAll(), HttpStatus.OK);
+    public ResponseEntity<ResponseObject> getPageProduct(@RequestParam("page") int page,
+            @RequestParam("limit") int limit) {
+        Pageable pageable = PageRequest.of(page - 1, limit);
+        Page<ProductEntity> result = new Page<>();
+        result.setPage(page);
+        result.setList(productService.findAll(pageable));
+        result.setTotalpage((int) Math.ceil((double) (productService.totalItem()) / limit));
+        return ResponseEntity.status(HttpStatus.OK).body(
+                new ResponseObject("OK", "Get products successfully", result));
     }
 
     @GetMapping("/{id}")
