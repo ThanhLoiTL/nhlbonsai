@@ -10,8 +10,6 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
 @Table(name = "product")
 public class ProductEntity {
@@ -42,7 +40,6 @@ public class ProductEntity {
     @Column(name = "image")
     private byte[] image;
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "category_id")
     private CategoryEntity category;
