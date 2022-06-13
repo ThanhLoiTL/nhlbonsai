@@ -50,40 +50,13 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/login", "/register").permitAll()
                 .antMatchers("/admin/**").hasAuthority("ADMIN")
+                .antMatchers("/account/**").hasAnyAuthority("ADMIN", "USER", "SHIPPER")
                 .antMatchers("/shipper/**").hasAuthority("SHIPPER")
+                .antMatchers("/cart/**").hasAuthority("USER")
                 .anyRequest().authenticated()
                 .and().exceptionHandling().and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-        // http.csrf().disable().authorizeHttpRequests().antMatchers("/login").permitAll().anyRequest()
-        // .authenticated().and()
-        // .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-        // .authorizeRequests()
-        // .antMatchers("/admin/account").access("hasRole('ADMIN')")
-        // .antMatchers("/shipper/**").access("hasRole('SHIPPER')").and()
-        // .addFilterBefore(jwtRequestFilter,
-        // UsernamePasswordAuthenticationFilter.class);
-
-        // .cors()
-        // .and()
-        // .csrf()
-        // .disable()
-        // .exceptionHandling()
-        // .authenticationEntryPoint(unauthorizedHandler) // Ném ngoại lệ
-        // .and()
-        // .sessionManagement()
-        // .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-        // .and()
-        // .authorizeRequests()
-        // .antMatchers()
-        // .permitAll()
-        // .antMatchers("/admin/account") // Đường dẫn /api/login-admin sẽ được truy cập
-        // bình thường mà ko cần
-        // // check
-        // .permitAll()
-        // .anyRequest()
-        // .authenticated(); // Mọi đường dẫn còn lại yêu cầu gửi Authentication String
-        // trên header để check.
     }
 
     @Bean

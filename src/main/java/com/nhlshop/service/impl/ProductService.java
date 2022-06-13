@@ -1,8 +1,10 @@
 package com.nhlshop.service.impl;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
+import com.nhlshop.entities.CategoryEntity;
 import com.nhlshop.entities.ProductEntity;
 import com.nhlshop.repository.ProductRepository;
 import com.nhlshop.service.IProductService;
@@ -44,6 +46,11 @@ public class ProductService implements IProductService {
     @Override
     public int totalItem() {
         return (int) productRepository.count();
+    }
+
+    @Override
+    public List<ProductEntity> findByCategory(CategoryEntity category, Pageable pageable) {
+        return productRepository.findByCategory(category, pageable);
     }
 
 }
