@@ -111,9 +111,9 @@ public class ProductController {
                         return productService.saveOrUpdate(p);
                     });
             return productExist.isPresent() ? ResponseEntity.status(HttpStatus.OK).body(
-                    new ResponseObject("OK", "Update category successfully", productExist))
+                    new ResponseObject("OK", "Update product successfully", productExist))
                     : ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-                            new ResponseObject("FAILED", "Cannot find category with id " + id, ""));
+                            new ResponseObject("FAILED", "Cannot find product with id " + id, ""));
         } catch (JsonMappingException e1) {
             e1.printStackTrace();
         } catch (JsonProcessingException e1) {

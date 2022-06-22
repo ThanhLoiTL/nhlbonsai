@@ -27,11 +27,6 @@ public class CategoryService implements ICategoryService {
     }
 
     @Override
-    public CategoryEntity getById(Long id) {
-        return categoryRepository.getById(id);
-    }
-
-    @Override
     public CategoryEntity saveOrUpdate(CategoryEntity category) {
         return categoryRepository.saveAndFlush(category);
     }
@@ -39,11 +34,6 @@ public class CategoryService implements ICategoryService {
     @Override
     public void deleteById(Long id) {
         categoryRepository.deleteById(id);
-    }
-
-    @Override
-    public CategoryEntity getByName(String name) {
-        return categoryRepository.findByName(name);
     }
 
 }

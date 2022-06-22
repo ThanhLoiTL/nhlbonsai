@@ -27,13 +27,13 @@ public class Product {
     @Autowired
     private ICategoryService categoryService;
 
-    @GetMapping("/categories/{plants}")
-    public ResponseEntity<ResponseObject> getPagePlant(@PathVariable String plants, @RequestParam("page") int page,
+    @GetMapping("/categories/{id}")
+    public ResponseEntity<ResponseObject> getPagePlant(@PathVariable Long id, @RequestParam("page") int page,
             @RequestParam("limit") int limit) {
         Pageable pageable = PageRequest.of(page - 1, limit);
         Page<ProductEntity> result = new Page<>();
         result.setPage(page);
-        result.setList(productService.findByCategory(categoryService.getByName(plants), pageable));
+        result.setList(productService.findByCategory(categoryService.findById(id).get(), pageable));
         result.setTotalpage((int) Math.ceil((double) (productService.totalItem()) / limit));
         return ResponseEntity.status(HttpStatus.OK).body(
                 new ResponseObject("OK", "Get products successfully", result));
