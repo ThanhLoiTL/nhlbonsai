@@ -60,4 +60,15 @@ public class Product {
                 : ResponseEntity.status(HttpStatus.NOT_FOUND).body(
                         new ResponseObject("FAILED", "Cannot get products", ""));
     }
+
+    @GetMapping("top-seller")
+    public ResponseEntity<ResponseObject> getTopSeller(@RequestParam("page") int page,
+            @RequestParam("limit") int limit) {
+        List<ProductEntity> products = productService.getTopSeller(page - 1, limit);
+        return products.size() > 0 ? ResponseEntity.status(HttpStatus.OK).body(
+                new ResponseObject("OK", "get products successfully",
+                        products))
+                : ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                        new ResponseObject("FAILED", "Cannot get products", ""));
+    }
 }

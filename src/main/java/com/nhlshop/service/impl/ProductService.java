@@ -60,4 +60,10 @@ public class ProductService implements IProductService {
         return productRepository.findAll(PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "id"))).getContent();
     }
 
+    @Override
+    public List<ProductEntity> getTopSeller(int page, int size) {
+        return productRepository.findAll(PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "quantitySold")))
+                .getContent();
+    }
+
 }
