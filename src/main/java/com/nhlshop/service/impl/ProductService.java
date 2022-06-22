@@ -10,7 +10,9 @@ import com.nhlshop.repository.ProductRepository;
 import com.nhlshop.service.IProductService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -51,6 +53,11 @@ public class ProductService implements IProductService {
     @Override
     public List<ProductEntity> findByCategory(CategoryEntity category, Pageable pageable) {
         return productRepository.findByCategory(category, pageable);
+    }
+
+    @Override
+    public List<ProductEntity> findAllByDesc(int page, int size) {
+        return productRepository.findAll(PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "id"))).getContent();
     }
 
 }

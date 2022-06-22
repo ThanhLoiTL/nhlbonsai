@@ -11,4 +11,6 @@ import com.nhlshop.entities.ProductEntity;
 @Service
 public interface IProductService extends IService<ProductEntity>, IPageService<ProductEntity> {
     List<ProductEntity> findByCategory(CategoryEntity category, Pageable pageable);
+
+    List<ProductEntity> findAllByDesc(int page, int size);
 }

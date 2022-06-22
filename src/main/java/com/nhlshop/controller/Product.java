@@ -1,5 +1,6 @@
 package com.nhlshop.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,5 +47,17 @@ public class Product {
                 new ResponseObject("OK", "Find product successfully", product))
                 : ResponseEntity.status(HttpStatus.NOT_FOUND).body(
                         new ResponseObject("FAILED", "Cannot find product with id " + id, ""));
+    }
+
+    @GetMapping("new-release")
+    public ResponseEntity<ResponseObject> findProductNewRelease(@RequestParam("page") int page,
+            @RequestParam("limit") int limit) {
+        List<ProductEntity> products = productService.findAllByDesc(page - 1, limit);
+
+        return products.size() > 0 ? ResponseEntity.status(HttpStatus.OK).body(
+                new ResponseObject("OK", "get products successfully",
+                        products))
+                : ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                        new ResponseObject("FAILED", "Cannot get products", ""));
     }
 }
