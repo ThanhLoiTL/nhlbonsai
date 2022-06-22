@@ -20,7 +20,7 @@ import com.nhlshop.service.IProductService;
 
 @RestController
 @RequestMapping()
-public class Product {
+public class ProductController {
     @Autowired
     private IProductService productService;
 
@@ -28,7 +28,7 @@ public class Product {
     private ICategoryService categoryService;
 
     @GetMapping("/categories/{id}")
-    public ResponseEntity<ResponseObject> getPagePlant(@PathVariable Long id, @RequestParam("page") int page,
+    public ResponseEntity<ResponseObject> getProductByCategory(@PathVariable Long id, @RequestParam("page") int page,
             @RequestParam("limit") int limit) {
         Pageable pageable = PageRequest.of(page - 1, limit);
         Page<ProductEntity> result = new Page<>();
