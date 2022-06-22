@@ -11,10 +11,7 @@ public class SecurityService implements ISecurityService {
 
     @Override
     public String findLoggedInUsername() {
-        Object userDetails = SecurityContextHolder.getContext().getAuthentication().getDetails();
-        if (userDetails instanceof UserDetails) {
-            return ((UserDetails) userDetails).getUsername();
-        }
-        return null;
+        Object userDetails = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return ((UserDetails) userDetails).getUsername();
     }
 }

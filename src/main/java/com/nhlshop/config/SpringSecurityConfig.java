@@ -48,12 +48,11 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         http.headers().xssProtection();
         http.cors().configurationSource(corsConfigurationSource()).and().csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/login", "/register").permitAll()
                 .antMatchers("/admin/**").hasAuthority("ADMIN")
                 .antMatchers("/account/**").hasAnyAuthority("ADMIN", "USER", "SHIPPER")
                 .antMatchers("/shipper/**").hasAuthority("SHIPPER")
                 .antMatchers("/cart/**").hasAuthority("USER")
-                .anyRequest().authenticated()
+                .anyRequest().permitAll()
                 .and().exceptionHandling().and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
