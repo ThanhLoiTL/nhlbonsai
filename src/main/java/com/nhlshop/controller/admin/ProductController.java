@@ -78,13 +78,15 @@ public class ProductController {
             e1.printStackTrace();
         }
         ProductEntity productEntity = productConverter.toEntity(productDTO);
-        productEntity.setCategory(categoryService.getById(productDTO.getCategory()));
         try {
+            productEntity.setCategory(categoryService.findById(productDTO.getCategory()).get());
             productEntity.setImage(multipartFile.getBytes());
+            productEntity = productService.saveOrUpdate(productEntity);
         } catch (IOException e) {
             e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body(
+                    new ResponseObject("FAILED", "Insert product not implemented", ""));
         }
-        productEntity = productService.saveOrUpdate(productEntity);
         return ResponseEntity.status(HttpStatus.OK).body(
                 new ResponseObject("OK", "Insert product successfully", productEntity));
     }
@@ -107,7 +109,7 @@ public class ProductController {
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-                        p.setCategory(categoryService.getById(productDTO.getCategory()));
+                        p.setCategory(categoryService.findById(productDTO.getCategory()).get());
                         return productService.saveOrUpdate(p);
                     });
             return productExist.isPresent() ? ResponseEntity.status(HttpStatus.OK).body(

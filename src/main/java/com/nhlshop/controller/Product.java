@@ -20,7 +20,7 @@ import com.nhlshop.service.IProductService;
 
 @RestController
 @RequestMapping()
-public class ProductController {
+public class Product {
     @Autowired
     private IProductService productService;
 

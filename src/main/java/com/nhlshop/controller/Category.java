@@ -15,7 +15,7 @@ import com.nhlshop.service.ICategoryService;
 
 @RestController
 @RequestMapping()
-public class CategoryController {
+public class Category {
     @Autowired
     private ICategoryService categoryService;
 
