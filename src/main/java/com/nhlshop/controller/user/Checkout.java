@@ -37,7 +37,7 @@ public class Checkout {
         if (!orderDTO.getAddress().trim().equals("") && !orderDTO.getReceiverName().trim().equals("")
                 && !orderDTO.getReceiverPhone().trim().equals("")) {
             UserEntity user = userService.findByEmail(securityService.findLoggedInUsername());
-            if (user != null) {
+            if (user == null) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
                         new ResponseObject("FAILED", "Not login", ""));
             }
