@@ -31,7 +31,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/admin/product")
-public class ProductController {
+public class ProductAPI {
     @Autowired
     private IProductService productService;
 

@@ -31,7 +31,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/admin/account")
-public class AccountController {
+public class AccountAPI {
     @Autowired
     private IUserService userService;
 
