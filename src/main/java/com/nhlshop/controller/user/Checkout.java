@@ -21,7 +21,7 @@ import com.nhlshop.service.ISecurityService;
 import com.nhlshop.service.IUserService;
 
 @RestController
-@RequestMapping("/checkout")
+@RequestMapping()
 public class Checkout {
     @Autowired
     private IUserService userService;
@@ -32,7 +32,7 @@ public class Checkout {
     @Autowired
     private ICartService cartService;
 
-    @PostMapping
+    @PostMapping("/payment")
     public ResponseEntity<ResponseObject> checkout(@RequestBody OrderDTO orderDTO) {
         if (!orderDTO.getAddress().trim().equals("") && !orderDTO.getReceiverName().trim().equals("")
                 && !orderDTO.getReceiverPhone().trim().equals("")) {
