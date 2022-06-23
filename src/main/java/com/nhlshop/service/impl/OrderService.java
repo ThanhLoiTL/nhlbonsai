@@ -5,11 +5,13 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 import com.nhlshop.entities.OrderEntity;
 import com.nhlshop.repository.OrderRepository;
 import com.nhlshop.service.IOrderService;
 
+@Service
 public class OrderService implements IOrderService {
     @Autowired
     private OrderRepository orderRepository;

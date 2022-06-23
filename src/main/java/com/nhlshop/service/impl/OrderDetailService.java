@@ -2,11 +2,14 @@ package com.nhlshop.service.impl;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.nhlshop.entities.OrderDetailEntity;
 import com.nhlshop.entities.OrderEntity;
 import com.nhlshop.repository.OrderDetailRepository;
 import com.nhlshop.service.IOrderDetailService;
 
+@Service
 public class OrderDetailService implements IOrderDetailService {
     @Autowired
     private OrderDetailRepository orderDetailRepository;;
