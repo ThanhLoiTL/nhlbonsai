@@ -1,6 +1,9 @@
 package com.nhlshop.service.impl;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +20,26 @@ public class OrderDetailService implements IOrderDetailService {
     @Override
     public List<OrderDetailEntity> findByOrder(OrderEntity order) {
         return orderDetailRepository.findByOrder(order);
+    }
+
+    @Override
+    public Collection<OrderDetailEntity> findAll() {
+        return null;
+    }
+
+    @Override
+    public Optional<OrderDetailEntity> findById(Long id) {
+        return null;
+    }
+
+    @Override
+    public OrderDetailEntity saveOrUpdate(OrderDetailEntity orderDetail) {
+        return orderDetailRepository.saveAndFlush(orderDetail);
+    }
+
+    @Override
+    public void deleteById(Long id) {
+
     }
 
 }

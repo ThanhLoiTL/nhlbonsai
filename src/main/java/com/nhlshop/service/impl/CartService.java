@@ -52,4 +52,8 @@ public class CartService implements ICartService {
         return this.saveOrUpdate(cart);
     }
 
+    @Override
+    public void deleteByUser(UserEntity userEntity) {
+        cartRepository.deleteByUser(userEntity);
+    }
 }

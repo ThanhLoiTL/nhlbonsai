@@ -37,8 +37,8 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public OrderEntity saveOrUpdate(OrderEntity t) {
-        return null;
+    public OrderEntity saveOrUpdate(OrderEntity order) {
+        return orderRepository.saveAndFlush(order);
     }
 
     @Override

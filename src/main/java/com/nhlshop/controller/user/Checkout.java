@@ -13,11 +13,15 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nhlshop.constant.OrderStatus;
 import com.nhlshop.dto.OrderDTO;
 import com.nhlshop.dto.ResponseObject;
+import com.nhlshop.entities.CartDetailEntity;
 import com.nhlshop.entities.CartEntity;
+import com.nhlshop.entities.OrderDetailEntity;
 import com.nhlshop.entities.OrderEntity;
 import com.nhlshop.entities.UserEntity;
 import com.nhlshop.service.ICartDetailService;
 import com.nhlshop.service.ICartService;
+import com.nhlshop.service.IOrderDetailService;
+import com.nhlshop.service.IOrderService;
 import com.nhlshop.service.ISecurityService;
 import com.nhlshop.service.IUserService;
 
@@ -35,6 +39,12 @@ public class Checkout {
 
     @Autowired
     private ICartService cartService;
+
+    @Autowired
+    private IOrderService orderService;
+
+    @Autowired
+    private IOrderDetailService orderDetailService;
 
     @PostMapping("/payment")
     public ResponseEntity<ResponseObject> checkout(@RequestBody OrderDTO orderDTO) {
@@ -60,7 +70,19 @@ public class Checkout {
 
             order.setStatus(OrderStatus.PROCESSING.toString());
 
+            OrderEntity orderEntity = orderService.saveOrUpdate(order);
+
+            for (CartDetailEntity cartDetail : cartDetailService.findCartDetailByCart(cart)) {
+                OrderDetailEntity orderDetail = new OrderDetailEntity();
+                orderDetail.setOrder(orderEntity);
+                orderDetail.setProduct(cartDetail.getProduct());
+                orderDetail.setQuantity(cartDetail.getQuantity());
+                orderDetail.setPrice(cartDetail.getProduct().getPrice() * cartDetail.getQuantity());
+                orderDetailService.saveOrUpdate(orderDetail);
+            }
+
             cartDetailService.deleteByCart(cart);
+            cartService.deleteByUser(user);
 
             return ResponseEntity.status(HttpStatus.OK).body(
                     new ResponseObject("OK", "Order successfully", ""));

@@ -37,5 +37,4 @@ public class CartDetailService implements ICartDetailService {
     public void deleteByCart(CartEntity cart) {
         cartDetailRepository.deleteByCart(cart);
     }
-
 }
