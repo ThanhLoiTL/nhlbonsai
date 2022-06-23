@@ -14,6 +14,4 @@ public interface ICartService {
     CartEntity calculateTotalMoney(CartEntity cart);
 
     CartEntity findByUser(UserEntity userEntity);
-
-    void deleteByUser(UserEntity userEntity);
 }

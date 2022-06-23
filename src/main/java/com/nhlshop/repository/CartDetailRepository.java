@@ -11,4 +11,6 @@ import com.nhlshop.entities.CartEntity;
 @Repository
 public interface CartDetailRepository extends JpaRepository<CartDetailEntity, Long> {
     List<CartDetailEntity> findByCart(CartEntity cartEntity);
+
+    void deleteByCart(CartEntity cart);
 }

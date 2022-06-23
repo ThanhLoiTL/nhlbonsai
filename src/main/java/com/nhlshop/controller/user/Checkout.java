@@ -16,6 +16,7 @@ import com.nhlshop.dto.ResponseObject;
 import com.nhlshop.entities.CartEntity;
 import com.nhlshop.entities.OrderEntity;
 import com.nhlshop.entities.UserEntity;
+import com.nhlshop.service.ICartDetailService;
 import com.nhlshop.service.ICartService;
 import com.nhlshop.service.ISecurityService;
 import com.nhlshop.service.IUserService;
@@ -28,6 +29,9 @@ public class Checkout {
 
     @Autowired
     private ISecurityService securityService;
+
+    @Autowired
+    private ICartDetailService cartDetailService;
 
     @Autowired
     private ICartService cartService;
@@ -56,7 +60,7 @@ public class Checkout {
 
             order.setStatus(OrderStatus.PROCESSING.toString());
 
-            cartService.deleteByUser(user);
+            cartDetailService.deleteByCart(cart);
 
             return ResponseEntity.status(HttpStatus.OK).body(
                     new ResponseObject("OK", "Order successfully", ""));

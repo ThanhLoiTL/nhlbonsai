@@ -30,4 +30,9 @@ public class CartDetailService implements ICartDetailService {
         return cartDetailRepository.findByCart(cartEntity);
     }
 
+    @Override
+    public void deleteByCart(CartEntity cart) {
+        cartDetailRepository.deleteByCart(cart);
+    }
+
 }

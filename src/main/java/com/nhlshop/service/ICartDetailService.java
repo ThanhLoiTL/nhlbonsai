@@ -14,4 +14,6 @@ public interface ICartDetailService {
     void deleteById(Long id);
 
     List<CartDetailEntity> findCartDetailByCart(CartEntity cartEntity);
+
+    void deleteByCart(CartEntity cart);
 }
