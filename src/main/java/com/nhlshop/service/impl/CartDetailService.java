@@ -2,6 +2,8 @@ package com.nhlshop.service.impl;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +13,7 @@ import com.nhlshop.repository.CartDetailRepository;
 import com.nhlshop.service.ICartDetailService;
 
 @Service
+@Transactional
 public class CartDetailService implements ICartDetailService {
     @Autowired
     private CartDetailRepository cartDetailRepository;
