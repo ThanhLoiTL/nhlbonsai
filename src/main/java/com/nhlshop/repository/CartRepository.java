@@ -9,4 +9,6 @@ import com.nhlshop.entities.UserEntity;
 @Repository
 public interface CartRepository extends JpaRepository<CartEntity, Long> {
     CartEntity findByUser(UserEntity userEntity);
+
+    void deleteByUser(UserEntity user);
 }

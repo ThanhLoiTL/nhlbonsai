@@ -56,6 +56,8 @@ public class Checkout {
 
             order.setStatus(OrderStatus.PROCESSING.toString());
 
+            cartService.deleteByUser(user);
+
             return ResponseEntity.status(HttpStatus.OK).body(
                     new ResponseObject("OK", "Order successfully", ""));
         }
