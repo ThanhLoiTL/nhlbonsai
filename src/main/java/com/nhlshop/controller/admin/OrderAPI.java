@@ -54,9 +54,9 @@ public class OrderAPI {
     }
 
     @PutMapping("/cancel-order")
-    public ResponseEntity<ResponseObject> cancelOrder(@RequestParam("id_order") Long id) {
+    public ResponseEntity<ResponseObject> cancelOrder(@RequestParam("id_order") Long idOrder) {
         try {
-            OrderEntity order = orderService.findById(id).get();
+            OrderEntity order = orderService.findById(idOrder).get();
             order.setStatus(OrderStatus.CANCEL.toString());
             orderService.saveOrUpdate(order);
             return ResponseEntity.status(HttpStatus.OK).body(
@@ -67,11 +67,12 @@ public class OrderAPI {
         }
     }
 
-    @PutMapping("/assignment/{id}")
-    public ResponseEntity<ResponseObject> assignShipper(@RequestParam("id_shipper") Long id) {
+    @PutMapping("/assignment")
+    public ResponseEntity<ResponseObject> assignShipper(@RequestParam("id_shipper") Long idShipper,
+            @RequestParam("id_order") Long idOrder) {
         try {
-            UserEntity shipper = userService.findById(id).get();
-            OrderEntity order = orderService.findById(id).get();
+            UserEntity shipper = userService.findById(idShipper).get();
+            OrderEntity order = orderService.findById(idOrder).get();
             order.setShipper(shipper);
             orderService.saveOrUpdate(order);
             return ResponseEntity.status(HttpStatus.OK).body(
