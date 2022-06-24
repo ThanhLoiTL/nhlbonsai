@@ -63,7 +63,7 @@ public class OrderEntity {
     @JoinColumn(name = "shipper_id")
     private UserEntity shipper;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "order")
     private Collection<OrderDetailEntity> orderDetails;
 
     public Long getId() {
@@ -152,6 +152,14 @@ public class OrderEntity {
 
     public void setShipper(UserEntity shipper) {
         this.shipper = shipper;
+    }
+
+    public Collection<OrderDetailEntity> getOrderDetails() {
+        return orderDetails;
+    }
+
+    public void setOrderDetails(Collection<OrderDetailEntity> orderDetails) {
+        this.orderDetails = orderDetails;
     }
 
 }
