@@ -1,9 +1,11 @@
 package com.nhlshop.controller.admin;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import com.nhlshop.constant.SystemConstant;
 import com.nhlshop.converter.UserConverter;
 import com.nhlshop.dto.Page;
 import com.nhlshop.dto.ResponseObject;
@@ -118,5 +120,13 @@ public class AccountAPI {
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
                 new ResponseObject("FAILED", "Cannot find user with id " + id, ""));
+    }
+
+    @GetMapping("/shipper")
+    public ResponseEntity<ResponseObject> getAllShipper() {
+        RoleEntity role = roleService.findByName(SystemConstant.SHIPPER);
+        List<UserEntity> shippers = userService.findByRoles(role);
+        return ResponseEntity.status(HttpStatus.OK).body(
+                new ResponseObject("OK", "Delete user successfully", shippers));
     }
 }

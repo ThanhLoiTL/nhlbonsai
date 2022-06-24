@@ -3,7 +3,6 @@ package com.nhlshop.service.impl;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import com.nhlshop.entities.RoleEntity;
 import com.nhlshop.entities.UserEntity;
@@ -26,8 +25,8 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public List<UserEntity> findByRoles(Set<RoleEntity> roles) {
-        return null;
+    public List<UserEntity> findByRoles(RoleEntity roles) {
+        return userRepository.findByRoles(roles);
     }
 
     @Override
