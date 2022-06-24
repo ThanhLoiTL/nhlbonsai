@@ -53,8 +53,8 @@ public class OrderAPI {
         }
     }
 
-    @PutMapping("/cancel-order/{id}")
-    public ResponseEntity<ResponseObject> cancelOrder(@PathVariable Long id) {
+    @PutMapping("/cancel-order")
+    public ResponseEntity<ResponseObject> cancelOrder(@RequestParam("id_order") Long id) {
         try {
             OrderEntity order = orderService.findById(id).get();
             order.setStatus(OrderStatus.CANCEL.toString());
@@ -68,7 +68,7 @@ public class OrderAPI {
     }
 
     @PutMapping("/assignment/{id}")
-    public ResponseEntity<ResponseObject> assignShipper(@PathVariable Long id) {
+    public ResponseEntity<ResponseObject> assignShipper(@RequestParam("id_shipper") Long id) {
         try {
             UserEntity shipper = userService.findById(id).get();
             OrderEntity order = orderService.findById(id).get();
