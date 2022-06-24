@@ -9,10 +9,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nhlshop.constant.OrderStatus;
 import com.nhlshop.dto.Page;
 import com.nhlshop.dto.ResponseObject;
 import com.nhlshop.entities.OrderDetailEntity;
@@ -52,6 +54,19 @@ public class OrderAPI {
             return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body(
                     new ResponseObject("FAILED", "Cannot IMPLEMENTED", ""));
         }
+    }
 
+    @PutMapping("/cancel-order/{id}")
+    public ResponseEntity<ResponseObject> cancelOrder(@PathVariable Long id) {
+        try {
+            OrderEntity order = orderService.findById(id).get();
+            order.setStatus(OrderStatus.CANCEL.toString());
+            orderService.saveOrUpdate(order);
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("OK", "Cancel order successfully", ""));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body(
+                    new ResponseObject("FAILED", "Cannot IMPLEMENTED", ""));
+        }
     }
 }
