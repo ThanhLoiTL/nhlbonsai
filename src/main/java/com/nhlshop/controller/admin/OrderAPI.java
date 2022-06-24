@@ -1,5 +1,7 @@
 package com.nhlshop.controller.admin;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -74,6 +76,8 @@ public class OrderAPI {
             UserEntity shipper = userService.findById(idShipper).get();
             OrderEntity order = orderService.findById(idOrder).get();
             order.setShipper(shipper);
+            order.setDeliveryDate(new Date());
+            order.setStatus(OrderStatus.SHIPPING.toString());
             orderService.saveOrUpdate(order);
             return ResponseEntity.status(HttpStatus.OK).body(
                     new ResponseObject("OK", "Cancel order successfully", ""));
