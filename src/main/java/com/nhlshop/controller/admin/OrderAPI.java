@@ -47,9 +47,9 @@ public class OrderAPI {
     public ResponseEntity<ResponseObject> findById(@PathVariable Long id) {
         try {
             OrderEntity order = orderService.findById(id).get();
-            List<OrderDetailEntity> orderDetails = orderDetailService.findByOrder(order);
+            // List<OrderDetailEntity> orderDetails = orderDetailService.findByOrder(order);
             return ResponseEntity.status(HttpStatus.OK).body(
-                    new ResponseObject("OK", "Get order successfully", orderDetails));
+                    new ResponseObject("OK", "Get order successfully", order));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body(
                     new ResponseObject("FAILED", "Cannot IMPLEMENTED", ""));
