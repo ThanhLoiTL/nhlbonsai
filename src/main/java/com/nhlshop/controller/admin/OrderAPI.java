@@ -16,13 +16,18 @@ import com.nhlshop.constant.OrderStatus;
 import com.nhlshop.dto.Page;
 import com.nhlshop.dto.ResponseObject;
 import com.nhlshop.entities.OrderEntity;
+import com.nhlshop.entities.UserEntity;
 import com.nhlshop.service.IOrderService;
+import com.nhlshop.service.IUserService;
 
 @RestController
 @RequestMapping("/admin/order")
 public class OrderAPI {
     @Autowired
     private IOrderService orderService;
+
+    @Autowired
+    private IUserService userService;
 
     @GetMapping
     public ResponseEntity<ResponseObject> getAll(@RequestParam("page") int page,
@@ -62,11 +67,12 @@ public class OrderAPI {
         }
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<ResponseObject> cancelOrder(@PathVariable Long id) {
+    @PutMapping("/assignment/{id}")
+    public ResponseEntity<ResponseObject> assignShipper(@PathVariable Long id) {
         try {
+            UserEntity shipper = userService.findById(id).get();
             OrderEntity order = orderService.findById(id).get();
-            order.setStatus(OrderStatus.CANCEL.toString());
+            order.setShipper(shipper);
             orderService.saveOrUpdate(order);
             return ResponseEntity.status(HttpStatus.OK).body(
                     new ResponseObject("OK", "Cancel order successfully", ""));
