@@ -9,4 +9,6 @@ import com.nhlshop.entities.UserEntity;
 
 public interface IOrderService extends IPageService<OrderEntity>, IService<OrderEntity> {
     List<OrderEntity> getOrderByShipper(UserEntity shipper, Pageable pageable);
+
+    List<OrderEntity> getOrderByUser(UserEntity user, Pageable page);
 }

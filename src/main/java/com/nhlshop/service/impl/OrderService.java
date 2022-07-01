@@ -53,4 +53,9 @@ public class OrderService implements IOrderService {
         return orderRepository.findByShipper(shipper, pageable);
     }
 
+    @Override
+    public List<OrderEntity> getOrderByUser(UserEntity user, Pageable page) {
+        return orderRepository.findByOrderUser(user, page);
+    }
+
 }

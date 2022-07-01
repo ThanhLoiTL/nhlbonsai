@@ -25,7 +25,7 @@ import com.nhlshop.service.IUserService;
 
 @RestController
 @RequestMapping("/shipper/order")
-public class OderAPI {
+public class OrderShipperAPI {
     @Autowired
     private IUserService userService;
 

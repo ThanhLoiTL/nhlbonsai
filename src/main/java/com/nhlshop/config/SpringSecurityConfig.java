@@ -53,6 +53,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/shipper/**").hasAuthority("SHIPPER")
                 .antMatchers("/cart/**").hasAuthority("USER")
                 .antMatchers("/checkout").hasAuthority("USER")
+                .antMatchers("/order-user").hasAuthority("USER")
                 .anyRequest().permitAll()
                 .and().exceptionHandling().and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
