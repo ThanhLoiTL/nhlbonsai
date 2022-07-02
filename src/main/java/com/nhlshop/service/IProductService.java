@@ -15,4 +15,6 @@ public interface IProductService extends IService<ProductEntity>, IPageService<P
     List<ProductEntity> findAllByDesc(int page, int size);
 
     List<ProductEntity> getTopSeller(int page, int size);
+
+    List<ProductEntity> search(String keyword);
 }

@@ -1,5 +1,6 @@
 package com.nhlshop.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -68,6 +69,19 @@ public class ProductController {
                 List<ProductEntity> products = productService.getTopSeller(page - 1, limit);
                 return products.size() > 0 ? ResponseEntity.status(HttpStatus.OK).body(
                                 new ResponseObject("OK", "get products successfully",
+                                                products))
+                                : ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                                                new ResponseObject("FAILED", "Cannot get products", ""));
+        }
+
+        @GetMapping("/search")
+        public ResponseEntity<ResponseObject> search(@RequestParam("keyword") String keyword) {
+                List<ProductEntity> products = new ArrayList<>();
+                if (keyword.toLowerCase().trim().length() > 0) {
+                        products = productService.search(keyword);
+                }
+                return products.size() > 0 ? ResponseEntity.status(HttpStatus.OK).body(
+                                new ResponseObject("OK", "Get products successfully",
                                                 products))
                                 : ResponseEntity.status(HttpStatus.NOT_FOUND).body(
                                                 new ResponseObject("FAILED", "Cannot get products", ""));

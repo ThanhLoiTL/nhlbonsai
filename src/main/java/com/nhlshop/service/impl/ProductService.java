@@ -66,4 +66,9 @@ public class ProductService implements IProductService {
                 .getContent();
     }
 
+    @Override
+    public List<ProductEntity> search(String keyword) {
+        return productRepository.search(keyword);
+    }
+
 }
